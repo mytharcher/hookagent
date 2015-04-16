@@ -29,7 +29,7 @@ Here is a sample of configuration structure:
 
     {
         // The HTTP listening port
-        "PORT": 6060,
+        "port": 6060,
         // Default branch which will be updated when not set in post request
         "defaultBranch": "master",
         // An empty folder to place flags which task is running
