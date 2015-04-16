@@ -1,0 +1,19 @@
+{
+  "name": "hookagnet",
+  "version": "0.0.1",
+  "description": "Git webhook agent for server auto-deployment.",
+  "main": "server.js",
+  "bin": {
+    "hookagent": "bin/cli.sh"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "git@github.com:mytharcher/hookagent.git",
+  "author": "mytharcher <mytharcher@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.12.3",
+    "basic-auth": "^1.0.0"
+  }
+}
