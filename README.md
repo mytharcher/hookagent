@@ -65,5 +65,7 @@ Roadmap
 * Add admin panel using basic authentication.
 * Use SQLite or other database to manage config data.
 
-MIT Lisenced
+MIT Licensed
 ----------
+
+-EOF-
