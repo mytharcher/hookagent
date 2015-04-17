@@ -38,18 +38,27 @@ function hook(req, res, next) {
 		return res.status(500).end();
 	}
 
-	child_process.execFile(path.join(process.cwd(), 'bin/deploy.sh'), [id, branch, project.shell || ''], {
+	var user = child_process.execSync('id -u ' + auth.name);
+	var uid = parseInt(Buffer.isBuffer(user) ? user.toString() : user, 10);
+
+	res.status(200).send('ok');
+
+	child_process.execFile(path.join(__dirname, 'bin/deploy.sh'), [id, branch, project.shell || ''], {
 		cwd: project.path,
-		uid: parseInt(child_process.execSync('id -u ' + auth.name), 10)
-	}, function (error, stdout) {
+		uid: uid
+	}, function (error, stdout, stderr) {
+		console.log(stdout);
+		if (stderr) {
+			console.log(stderr);
+		}
 		if (error) {
 			console.log(error);
+		} else {
+			console.log('Deployment done.');
 		}
-		console.log('Deployment done.');
 	});
 
 	console.log('[200] Deployment started.');
-	return res.status(200).end();
 }
 
 var config = require('/etc/hookagent.json');
