@@ -8,18 +8,30 @@ Usage
 
 ### On a server ###
 
-    $ sudo npm install -g hookagent
+Hookagent require [PM2][] to start service, so make sure it has been installed in global:
+
     $ sudo npm install -g pm2
+
+Then use npm install hookagent:
+
+    $ sudo npm install -g hookagent
+
+After installed you can use this commands to start the agent:
+
     $ hookagent config
     $ hookagent start
 
 ### Post hook ###
 
-When a Git hook service send a post request:
+Set a git post hook in the admin panel of your repository like this:
 
-    [POST]:http://user:password@deploy.yourserver.com:6060/project/id@dev
+    [POST]:http://user:password@deploy.yourserver.com:6060/project/id@branch
 
-The agent will check the request with HTTP basic authentication to avoid mistake request.
+`user:password` is reqired part in post URL. The agent will check the request with HTTP basic authentication to avoid mistake request.
+
+`6060` as port is set in the config, you can change it as you wish.
+
+`/project/:id` is the router, `@branch` is optional default to `master`.
 
 ### Configuration ###
 
@@ -69,3 +81,5 @@ MIT Licensed
 ----------
 
 -EOF-
+
+[PM2]: https://github.com/Unitech/PM2
