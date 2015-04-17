@@ -53,7 +53,7 @@ Before start the agent first time, run `hookagent config` to generate a config f
 
 Here is a sample of configuration structure:
 
-```json
+```javascript
 {
     // The HTTP listening port
     "port": 6060,
