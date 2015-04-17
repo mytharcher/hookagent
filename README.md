@@ -8,7 +8,7 @@ For sysadmins simply setup a post hook agent on server to deploy git projects li
 Usage
 ----------
 
-### On a server ###
+### On your server ###
 
 Hookagent require [PM2][] to start service, so make sure it has been installed in global:
 
@@ -22,6 +22,15 @@ After installed you can use this commands to start the agent:
 
     $ hookagent config
     $ hookagent start
+
+### Get ready your repository ###
+
+Additional things about git you should make sure:
+
+* Project repository alread cloned once from 3rd-party git service.
+* All repository files(folders) is own by the specific user(s) you configured in the config file (`/etc/hookagent.json`, see below).
+* Within the user, the ssh-key has been generated (no password), and set as deploy key in 3rd-party git service.
+* The ssh-key has been used at least once, to make sure it has been add to the list of known hosts of the service.
 
 ### Post hook ###
 
