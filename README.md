@@ -53,34 +53,36 @@ Before start the agent first time, run `hookagent config` to generate a config f
 
 Here is a sample of configuration structure:
 
-    {
-        // The HTTP listening port
-        "port": 6060,
-        // Default branch which will be updated when not set in post request
-        "defaultBranch": "master",
-        // An empty folder to place flags which task is running
-        "runningPath": "/var/deployagent.running",
+```json
+{
+    // The HTTP listening port
+    "port": 6060,
+    // Default branch which will be updated when not set in post request
+    "defaultBranch": "master",
+    // An empty folder to place flags which task is running
+    "runningPath": "/var/deployagent.running",
 
-        // Projects map. ID: object
-        "projects": {
-            "sample": {
-                // Project path
-                "path": "/var/www/sample",
+    // Projects map. ID: object
+    "projects": {
+        "sample": {
+            // Project path
+            "path": "/var/www/sample",
 
-                // Task to be run after git pull, such as build etc.
-                // "shell": "./build.sh",
+            // Task to be run after git pull, such as build etc.
+            // "shell": "./build.sh",
 
-                // Users in list allow to trigger deploy
-                "users": ["abc"]
-            }
-        },
-
-        // Users list for HTTP basic authentication. ID: password
-        // Each user ID should match server user name.
-        "users": {
-            "abc": "ba1f2511fc30423bdbb183fe33f3dd0f"
+            // Users in list allow to trigger deploy
+            "users": ["abc"]
         }
+    },
+
+    // Users list for HTTP basic authentication. ID: password
+    // Each user ID should match server user name.
+    "users": {
+        "abc": "ba1f2511fc30423bdbb183fe33f3dd0f"
     }
+}
+```
 
 Once the config file generated, run the `hookagent config` will show the content.
 
