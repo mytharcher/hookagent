@@ -28,8 +28,11 @@ After installed you can use this commands to start the agent:
 Additional things about git you should make sure:
 
 * Project repository alread cloned once from 3rd-party git service.
+
 * All repository files(folders) is own by the specific user(s) you configured in the config file (`/etc/hookagent.json`, see below).
+
 * Within the user, the ssh-key has been generated (no password), and set as deploy key in 3rd-party git service.
+
 * The ssh-key has been used at least once, to make sure it has been add to the list of known hosts of the service.
 
 ### Post hook ###
@@ -38,11 +41,11 @@ Set a git post hook in the admin panel of your repository like this:
 
     [POST]:http://user:password@deploy.yourserver.com:6060/project/id@branch
 
-`user:password` is reqired part in post URL. The agent will check the request with HTTP basic authentication to avoid mistake request.
+* `user:password` is reqired part in post URL. The agent will check the request with HTTP basic authentication to avoid mistake request.
 
-`6060` as port is set in the config, you can change it as you wish.
+* `6060` as port is set in the config, you can change it as you wish.
 
-`/project/:id` is the router, `@branch` is optional default to `master`.
+* `/project/:id` is the router, `@branch` is optional default to `master`.
 
 ### Configuration ###
 
