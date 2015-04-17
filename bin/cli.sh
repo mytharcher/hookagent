@@ -28,10 +28,10 @@ case $1 in
 			cat $CONFIG_TARGET
 		else
 			if [[ ! -f $CONFIG_TARGET ]]; then
-				cp $CONFIG_SOURCE $CONFIG_TARGET && echo "$APP_NAME default configurations generated to $CONFIG_TARGET. You can add your project config as in comment."
+				cp $CONFIG_SOURCE $CONFIG_TARGET && chmod 600 $CONFIG_TARGET && echo "$APP_NAME default configurations generated to $CONFIG_TARGET. You can add your project config as in comment."
 			fi
 			if [[ ! -d $FLAG_PATH ]]; then
-				mkdir -p $FLAG_PATH && echo "$APP_NAME log folder created at $LOG_PATH."
+				mkdir -p $FLAG_PATH -m 777 && echo "$APP_NAME log folder created at $LOG_PATH."
 			fi
 		fi
 		;;
