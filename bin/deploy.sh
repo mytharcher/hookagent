@@ -7,6 +7,7 @@ found=0
 
 git fetch origin
 git reset --hard HEAD
+
 for br in $(git branch | sed 's/^[\* ]*//')
 do
 	if [[ $br=$branch ]]; then

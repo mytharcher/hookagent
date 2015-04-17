@@ -10,7 +10,7 @@ var basicAuth = require('basic-auth');
 function check(req, res, next) {
 	var id = req.params[0];
 	if (!id) {
-		console.log('[400] Bad request. Without project id.')
+		console.log('[400] Bad request. Without project id.');
 		return res.status(400).end();
 	}
 
