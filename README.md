@@ -3,6 +3,8 @@ Git webhook deploy agent
 
 Git webhook agent for server auto-deployment.
 
+For sysadmins simply setup a post hook agent on server to deploy git projects like PaaS from your using third-party git service.
+
 Usage
 ----------
 
@@ -62,6 +64,7 @@ Here is a sample of configuration structure:
         },
 
         // Users list for HTTP basic authentication. ID: password
+        // Each user ID should match server user name.
         "users": {
             "abc": "ba1f2511fc30423bdbb183fe33f3dd0f"
         }
@@ -76,6 +79,7 @@ Roadmap
 * Add Github and Bitbucket post data parsing to avoid none updated pulling.
 * Add admin panel using basic authentication.
 * Use SQLite or other database to manage config data.
+* Add RSA authentication instead of basic HTTP.
 
 MIT Licensed
 ----------

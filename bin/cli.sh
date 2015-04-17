@@ -7,11 +7,10 @@ SERVER_SCRIPT="$LIB_PATH/server.js"
 CONFIG_SOURCE="$LIB_PATH/config.json"
 CONFIG_TARGET="/etc/$APP_NAME.json"
 LOG_PATH="/var/log/$APP_NAME"
-FLAG_PATH="$LOG_PATH/.running"
 
 CONFIGURED=0
 
-if [[ -f $CONFIG_TARGET && -d $FLAG_PATH ]]; then
+if [[ -f $CONFIG_TARGET && -d $LOG_PATH ]]; then
 	CONFIGURED=1
 fi
 
@@ -30,8 +29,8 @@ case $1 in
 			if [[ ! -f $CONFIG_TARGET ]]; then
 				cp $CONFIG_SOURCE $CONFIG_TARGET && chmod 600 $CONFIG_TARGET && echo "$APP_NAME default configurations generated to $CONFIG_TARGET. You can add your project config as sample in it."
 			fi
-			if [[ ! -d $FLAG_PATH ]]; then
-				mkdir -p $FLAG_PATH -m 777 && echo "$APP_NAME log folder created at $LOG_PATH."
+			if [[ ! -d $LOG_PATH ]]; then
+				mkdir -p $LOG_PATH -m 777 && echo "$APP_NAME log folder created at $LOG_PATH."
 			fi
 		fi
 		;;

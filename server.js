@@ -7,7 +7,7 @@ var basicAuth = require('basic-auth');
 
 
 
-function check(req, res, next) {
+function hook(req, res, next) {
 	var id = req.params[0];
 	if (!id) {
 		console.log('[400] Bad request. Without project id.');
@@ -31,12 +31,6 @@ function check(req, res, next) {
 
 	console.log('Authentication passed.');
 
-	next();
-}
-
-function deploy(req, res, next) {
-	var id = req.params[0];
-	var project = config.projects[id];
 	var branch = req.params[1] || project.branch || config.defaultBranch;
 
 	if (!fs.existsSync(project.path)) {
@@ -44,39 +38,32 @@ function deploy(req, res, next) {
 		return res.status(500).end();
 	}
 
-	var flag = path.join(config.runningPath, id);
-	if (!fs.existsSync(flag)) {
-		fs.writeFileSync(flag, '', {mode: 0644});
+	child_process.execFile(path.join(process.cwd(), 'bin/deploy.sh'), [id, branch, project.shell || ''], {
+		cwd: project.path,
+		uid: parseInt(child_process.execSync('id -u ' + auth.name), 10)
+	}, function (error, stdout) {
+		if (error) {
+			console.log(error);
+		}
+		console.log('Deployment done.');
+	});
 
-		child_process.execFile(path.join(process.cwd(), 'bin/deploy.sh'), [branch, project.shell || ''], {
-			cwd: project.path
-		}, function (error, stdout) {
-			if (error) {
-				console.log(error);
-			}
-			fs.unlinkSync(flag);
-			console.log('Deployment done.');
-		});
-
-		console.log('[200] Deployment started.');
-		return res.status(200).end();
-	} else {
-		console.log('[409] Deployment working.');
-		return res.status(409).end();
-	}
+	console.log('[200] Deployment started.');
+	return res.status(200).end();
 }
 
 var config = require('/etc/hookagent.json');
 
-var app = express();
+var agent = express();
 
-app.get('/', function (req, res, next) {
-	res.status(200).send();
+agent.get('/', function (req, res, next) {
+	// indicate process is running
+	res.status(200).send('ok');
 });
 
 // [POST]:/project/project-name<@branch-name>
-app.post(/\/project\/([\w-]+)(?:@([\w-]+))?/i, check, deploy);
+agent.post(/\/project\/([\w-]+)(?:@([\w-]+))?/i, hook);
 
-app.listen(config.port, function() {
-	console.log("Deploy agent started at %s. Listening on %d", new Date(), config.port);
+agent.listen(config.port, function() {
+	console.log("Hook agent started at %s. Listening on %d", new Date(), config.port);
 });
