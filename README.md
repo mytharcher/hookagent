@@ -1,8 +1,6 @@
 Git webhook deploy agent
 ==========
 
-Git webhook agent for server auto-deployment.
-
 For sysadmins simply setup a post hook agent on server to deploy git projects like PaaS from your using third-party git service.
 
 Usage
