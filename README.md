@@ -8,19 +8,18 @@ For sysadmins simply setup a post hook agent on server to deploy git projects li
 Usage
 ----------
 
+### Requirement ###
+
+* node version >= 0.12.0
+* [PM2][] installed in global: `sudo npm install -g pm2`
+
 ### On your server ###
-
-Hookagent require [PM2][] to start service, so make sure it has been installed in global:
-
-    $ sudo npm install -g pm2
-
-Then use npm install hookagent:
 
     $ sudo npm install -g hookagent
 
 After installed you can use this commands to start the agent:
 
-    $ hookagent config
+    $ sudo hookagent config
     $ hookagent start
 
 ### Get ready your repository ###
