@@ -59,8 +59,6 @@ Here is a sample of configuration structure:
     "port": 6060,
     // Default branch which will be updated when not set in post request
     "defaultBranch": "master",
-    // An empty folder to place flags which task is running
-    "runningPath": "/var/deployagent.running",
 
     // Projects map. ID: object
     "projects": {
