@@ -18,7 +18,7 @@ Usage
 After installed you can use this commands to start the agent:
 
     $ sudo hookagent config
-    $ hookagent start
+    $ sudo su -c "hookagent start" # start the progress root
 
 ### Get ready your repository ###
 
