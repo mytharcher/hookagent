@@ -38,6 +38,8 @@ else
 	git checkout origin/$branch -b $branch
 fi
 
+git submodule update --init --recursive
+
 if [[ $task != '' ]]; then
 	"$task"
 	$task
