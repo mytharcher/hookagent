@@ -60,14 +60,17 @@ Here is a sample of configuration structure:
     // Projects map. ID: object
     "projects": {
         "sample": {
-            // Project path
-            "path": "/var/www/sample",
+            // branch
+            "master": {
+                // Project path
+                "path": "/var/www/sample",
 
-            // Task to be run after git pull, such as build etc.
-            // "shell": "./build.sh",
+                // Task to be run after git pull, such as build etc.
+                // "shell": "./build.sh",
 
-            // Users in list allow to trigger deploy
-            "users": ["abc"]
+                // Users in list allow to trigger deploy
+                "users": ["abc"]
+            }
         }
     },
 

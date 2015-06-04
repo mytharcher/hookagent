@@ -4,8 +4,10 @@
 
 	"projects": {
 		"sample": {
-			"path": "/var/www/sample",
-			"users": ["abc"]
+			"master": {
+				"path": "/var/www/sample",
+				"users": ["abc"]
+			}
 		}
 	},
 
