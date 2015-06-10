@@ -88,7 +88,7 @@ Here is a sample of configuration structure:
 
 **Make sure** that when using different branches in one project, the `path` of branch shouldn't be same on one server. This is just for different usage (such as testing) base on branch mapping.
 
-Once the config file generated, run the `hookagent config` will show the content.
+Once the config file generated, run the `hookagent config` will open the content with `vim`.
 
 Roadmap
 -----------

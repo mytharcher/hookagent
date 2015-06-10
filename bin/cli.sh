@@ -24,7 +24,7 @@ case $1 in
 	config )
 		if [[ $CONFIGURED = 1 ]]; then
 			echo "$APP_NAME configurations ($CONFIG_TARGET):"
-			cat $CONFIG_TARGET
+			vim $CONFIG_TARGET
 		else
 			if [[ ! -f $CONFIG_TARGET ]]; then
 				cp $CONFIG_SOURCE $CONFIG_TARGET && chmod 600 $CONFIG_TARGET && echo "$APP_NAME default configurations generated to $CONFIG_TARGET. You can add your project config as sample in it."
