@@ -2,7 +2,11 @@
 
 LOG_PATH=/var/log/hookagent
 PROJECT=$1
-TEMP_FLAG=$LOG_PATH/.$PROJECT
+
+branch=$2
+task=$3
+
+TEMP_FLAG=$LOG_PATH/.$PROJECT.$branch
 
 if [[ ! -f $TEMP_FLAG ]]; then
 	touch $TEMP_FLAG
@@ -10,8 +14,6 @@ else
 	exit 0
 fi
 
-branch=$2
-task=$3
 
 found=0
 
