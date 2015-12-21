@@ -43,24 +43,26 @@ function hook(req, res, next) {
 	console.log('Authentication passed.');
 
 	if (!fs.existsSync(options.path)) {
-		console.log('[500] No path found for project: "' + id + '"');
+		console.log('[404] No path found for project: "' + id + '"');
 		return res.status(404).end();
 	}
 
-	// need nodejs 0.12
-	var user = child_process.execSync('id -u ' + auth.name);
-	var uid = parseInt(Buffer.isBuffer(user) ? user.toString() : user, 10);
+	// need nodejs >= 0.12
+	var uid = parseInt(child_process.execSync('id -u ' + auth.name).toString().trim(), 10);
+	var home = child_process.execSync('echo ~' + auth.name).toString().trim();
+
+	if (!uid || !home) {
+		return res.status(400).send('not found');
+	}
 
 	res.status(200).send('ok');
 
 	child_process.execFile(path.join(__dirname, 'bin/deploy.sh'), [id, branch, options.shell || ''], {
 		cwd: options.path,
-		uid: uid
+		uid: uid,
+		env: {HOME: home}
 	}, function (error, stdout, stderr) {
 		console.log(stdout);
-		if (stderr) {
-			console.log(stderr);
-		}
 		if (error) {
 			console.log(error);
 		} else {

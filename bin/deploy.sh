@@ -17,6 +17,8 @@ fi
 
 found=0
 
+pwd
+
 echo "git reset --hard HEAD"
 git reset --hard HEAD
 echo "git fetch origin"
@@ -31,8 +33,8 @@ do
 done
 
 if [[ $found == 1 ]]; then
-	echo "git checkout $branch"
-	git checkout $branch
+	echo "git checkout -q $branch"
+	git checkout -q $branch
 	echo "git merge origin/$branch"
 	git merge origin/$branch
 else
@@ -43,8 +45,8 @@ fi
 git submodule update --init --recursive
 
 if [[ $task != '' ]]; then
-	"$task"
-	$task
+	echo "start to run shell script: $task"
+	sh $task
 fi
 
 rm $TEMP_FLAG
