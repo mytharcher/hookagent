@@ -3,8 +3,9 @@
 LOG_PATH=/var/log/hookagent
 PROJECT=$1
 
-branch=$2
-task=$3
+remote=$2
+branch=$3
+task=$4
 
 TEMP_FLAG=$LOG_PATH/.$PROJECT.$branch
 
@@ -21,8 +22,8 @@ pwd
 
 echo "git reset --hard HEAD"
 git reset --hard HEAD
-echo "git fetch origin"
-git fetch origin
+echo "git fetch $remote"
+git fetch $remote
 
 for br in $(git branch | sed 's/^[\* ]*//')
 do
@@ -35,11 +36,11 @@ done
 if [[ $found == 1 ]]; then
 	echo "git checkout -q $branch"
 	git checkout -q $branch
-	echo "git merge origin/$branch"
-	git merge origin/$branch
+	echo "git merge $remote/$branch"
+	git merge $remote/$branch
 else
-	echo "git checkout origin/$branch -b $branch"
-	git checkout origin/$branch -b $branch
+	echo "git checkout $remote/$branch -b $branch"
+	git checkout $remote/$branch -b $branch
 fi
 
 git submodule update --init --recursive

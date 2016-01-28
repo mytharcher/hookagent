@@ -36,13 +36,13 @@ Additional things about git you should make sure:
 
 Set a git post hook in the admin panel of your repository like this:
 
-    [POST]:http://user:password@deploy.yourserver.com:6060/project/id@branch
+    [POST]:http://user:password@deploy.yourserver.com:6060/project/id@remote/branch
 
 * `user:password` is reqired part in post URL. The agent will check the request with HTTP basic authentication to avoid mistake request.
 
 * `6060` as port is set in the config, you can change it as you wish.
 
-* `/project/:id` is the router, `@branch` is optional default to `master`.
+* `/project/:id` is the router, `@remote/branch` is optional default to `origin/master`. If branch (or with remote) is set in hook URL, the part after `@` should be exactly match the config (see below).
 
 ### Configuration ###
 
@@ -54,6 +54,8 @@ Here is a sample of configuration structure:
 {
     // The HTTP listening port
     "port": 6060,
+    // Default remote will be used if not set in post request
+    "defaultRemote": "origin",
     // Default branch which will be updated when not set in post request
     "defaultBranch": "master",
 

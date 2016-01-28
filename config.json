@@ -1,10 +1,10 @@
 {
 	"port": 6060,
-	"defaultBranch": "master",
+	"defaultBranch": "origin/master",
 
 	"projects": {
 		"sample": {
-			"master": {
+			"origin/master": {
 				"path": "/var/www/sample",
 				"users": ["abc"]
 			}

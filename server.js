@@ -8,6 +8,8 @@ var basicAuth = require('basic-auth');
 
 
 function hook(req, res, next) {
+	console.log('Deployment request received: ' + JSON.stringify(req.params));
+
 	var id = req.params[0];
 	if (!id) {
 		console.log('[400] Bad request. Without project id.');
@@ -22,13 +24,15 @@ function hook(req, res, next) {
 	}
 
 	// find branch options in config
-	var branch = req.params[1] || config.defaultBranch;
+	var branch = req.params[1] || config.defaultBranch || 'master';
 	var options = project[branch];
-
 	if (!options) {
 		console.log('[404] No options of branch "' + branch + '" found. Please check config.');
 		return res.status(404).end();
 	}
+	
+	var branchParam = branch.split('/');
+	var remote = branchParam.length == 1 ? config.defaultRemote || 'origin' : branch[0];
 
 	// check auth
 	var auth = basicAuth(req);
@@ -57,7 +61,7 @@ function hook(req, res, next) {
 
 	res.status(200).send('ok');
 
-	child_process.execFile(path.join(__dirname, 'bin/deploy.sh'), [id, branch, options.shell || ''], {
+	child_process.execFile(path.join(__dirname, 'bin/deploy.sh'), [id, remote, branch, options.shell || ''], {
 		cwd: options.path,
 		uid: uid,
 		env: {HOME: home}
@@ -82,8 +86,8 @@ agent.get('/', function (req, res, next) {
 	res.status(200).send('ok');
 });
 
-// [POST]:/project/project-name<@branch-name>
-agent.post(/\/project\/([\w-]+)(?:@([\w-]+))?/i, hook);
+// [POST]:/project/project-name[@[remote/]branch-name]
+agent.post(/\/project\/([\w\.\-]+)(?:@([\w\/\.\-]+))?/i, hook);
 
 agent.listen(config.port, function() {
 	console.log("Hook agent started at %s. Listening on %d", new Date(), config.port);
