@@ -56,10 +56,14 @@ case $1 in
 			check_config
 		fi
 		;;
+	update )
+		npm update -g hookagent
+		;;
 	*)
 		echo "Usage: $APP_NAME <sub-command>"
 		echo "  config: to generate configuration file or show content."
 		echo "  start: to start the agent as service."
 		echo "  stop: to stop the running service."
+		echo "  update: to update the version."
 		;;
 esac
