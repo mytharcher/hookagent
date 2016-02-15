@@ -32,7 +32,12 @@ function hook(req, res, next) {
 	}
 	
 	var branchParam = branch.split('/');
-	var remote = branchParam.length == 1 ? config.defaultRemote || 'origin' : branch[0];
+	var remote = branchParam[0];
+	if (branchParam.length == 1) {
+		remote = config.defaultRemote || 'origin';
+	} else {
+		branch = branchParam[1];
+	}
 
 	// check auth
 	var auth = basicAuth(req);

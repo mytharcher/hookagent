@@ -7,7 +7,7 @@ remote=$2
 branch=$3
 task=$4
 
-TEMP_FLAG=$LOG_PATH/.$PROJECT.$branch
+TEMP_FLAG=$LOG_PATH/.$PROJECT.$remote-$branch
 
 if [[ ! -f $TEMP_FLAG ]]; then
 	touch $TEMP_FLAG
