@@ -69,7 +69,7 @@ function hook(req, res, next) {
 	child_process.execFile(path.join(__dirname, 'bin/deploy.sh'), [id, remote, branch, options.shell || ''], {
 		cwd: options.path,
 		uid: uid,
-		env: {HOME: home}
+		env: process.env
 	}, function (error, stdout, stderr) {
 		console.log(stdout);
 		if (error) {
