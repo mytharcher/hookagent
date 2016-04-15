@@ -7,11 +7,14 @@ remote=$2
 branch=$3
 task=$4
 
+echo "start deploying $remote/$branch"
+
 TEMP_FLAG=$LOG_PATH/.$PROJECT.$remote-$branch
 
 if [[ ! -f $TEMP_FLAG ]]; then
 	touch $TEMP_FLAG
 else
+	echo "still deploying..."
 	exit 0
 fi
 
