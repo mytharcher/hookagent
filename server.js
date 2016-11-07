@@ -55,11 +55,14 @@ function hook(req, res, next) {
                 console.log('[404] No path found for project: "' + id + '"');
                 return res.status(404).end();
         }
-
+ 
+        if (!config.group){
+                config.group=auth.name;
+        }
         // need nodejs >= 0.12
         var uid = parseInt(child_process.execSync('id -u ' + auth.name).toString().trim(), 10);
         var home = child_process.execSync('echo ~' + auth.name).toString().trim();
-        var gid = parseInt(child_process.execSync('id -g ' + config.group).toString().trim() || uid, 10);
+        var gid = parseInt(child_process.execSync('id -g ' + config.group).toString().trim(), 10);
 
         if (!uid || !home) {
                 return res.status(400).send('not found');
