@@ -1,4 +1,4 @@
-Git webhook deploy agent
+Git webhook deploy agent with sudo support
 ==========
 
 For sysadmins simply setup a post hook agent on server to deploy git projects like PaaS from your using third-party git service.
@@ -36,13 +36,13 @@ Additional things about git you should make sure:
 
 Set a git post hook in the admin panel of your repository like this:
 
-    [POST]:http://user:password@deploy.yourserver.com:6060/project/id@remote/branch
+    [POST]:http://user:password@deploy.yourserver.com:6060/project/id@remote/branch/extraArg
 
 * `user:password` is reqired part in post URL. The agent will check the request with HTTP basic authentication to avoid mistake request.
 
 * `6060` as port is set in the config, you can change it as you wish.
 
-* `/project/:id` is the router, `@remote/branch` is optional default to `origin/master`. If branch (or with remote) is set in hook URL, the part after `@` should be exactly match the config (see below).
+* `/project/:id` is the router, `@remote/branch` is optional default to `origin/master`. If branch (or with remote) is set in hook URL, the part after `@` should be exactly match the config (see below). `extraArg` can be passed to router
 
 ### Configuration ###
 
@@ -63,12 +63,14 @@ Here is a sample of configuration structure:
     "projects": {
         "sample": {
             // branch
-            "master": {
+            "origin/master/extraArg": {
                 // Project path
                 "path": "/var/www/sample",
 
                 // Task to be run after git pull, such as build etc.
                 // "shell": "./build.sh",
+                // run scirpt with sudo -H -u $user -g $group
+                // "sudo": true
 
                 // Users in list allow to trigger deploy
                 "users": ["abc"]
@@ -84,7 +86,10 @@ Here is a sample of configuration structure:
     // Each user ID should match server user name.
     "users": {
         "abc": "ba1f2511fc30423bdbb183fe33f3dd0f"
-    }
+    },
+    //Group name for deploy tasks
+    "group": ["www-data"]
+    
 }
 ```
 

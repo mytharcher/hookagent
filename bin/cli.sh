@@ -37,7 +37,7 @@ case $1 in
 	start )
 		if [[ $CONFIGURED = 1 ]]; then
 			echo "Starting deploy agent server..."
-			pm2 start $SERVER_SCRIPT --name $APP_NAME
+			pm2 start $SERVER_SCRIPT --name $APP_NAME --log $LOG_PATH/agent.log
 		else
 			check_config
 		fi
