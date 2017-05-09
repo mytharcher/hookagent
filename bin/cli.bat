@@ -5,10 +5,10 @@ set APP_NAME=hookagent
 set currentUser=%username%
 
 :: get project root path
-set LIB_PATH=%1
+set LIB_PATH=..\
 
 :: get configPath from parameters
-set configPath=%2
+set configPath=C:\Windows\system32
 
 set SERVER_SCRIPT=%LIB_PATH%\server.js
 set CONFIG_SOURCE=%LIB_PATH%\config.json
@@ -26,41 +26,36 @@ if not exist %CONFIG_TARGET% (
 if not exist %LOG_PATH% md %LOG_PATH%
 
 :: get user op
-set op=%3
+set op=%1
 
 :: config
 if "%op%" == "config" (
     echo %APP_NAME% configurations %CONFIG_TARGET%
     notepad %CONFIG_TARGET%
-    pause
     exit
 )
 if "%op%" == "start" (
     echo Starting deploy agent server...
     pm2 start %SERVER_SCRIPT% --name %APP_NAME%
-    pause
     exit
 )
 if "%op%" == "stop" (
     echo Stopping deploy agent server...
     pm2 stop %APP_NAME%
-    pause
     exit
 )
 if "%op%" == "restart" (
     echo Restarting deploy agent server...
     pm2 restart %APP_NAME%
-    pause
     exit
 )
 if "%op%" == "update" (
     echo Updating %APP_NAME%
     npm update -g hookagent
-    pause
     exit
 )
 
-echo Usage: %APP_NAME% <sub-command>
+echo "Usage: %APP_NAME% <sub-command>"
 echo   config: to generate configuration file or show content.
 echo   start: to start the agent as service.
 echo   stop: to stop the running service.
