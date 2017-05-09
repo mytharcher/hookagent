@@ -23,12 +23,12 @@ found=0
 
 pwd
 
-echo "git reset --hard HEAD"
-git reset --hard HEAD
+echo "%git% reset --hard HEAD"
+%git% reset --hard HEAD
 echo "git fetch $remote"
-git fetch $remote
+%git% fetch $remote
 
-for br in $(git branch | sed 's/^[\* ]*//')
+for br in $(%git% branch | sed 's/^[\* ]*//')
 do
 	if [[ $br == $branch ]]; then
 		echo "found branch: $branch"
@@ -38,15 +38,15 @@ done
 
 if [[ $found == 1 ]]; then
 	echo "git checkout -q $branch"
-	git checkout -q $branch
+	%git% checkout -q $branch
 	echo "git merge $remote/$branch"
-	git merge $remote/$branch
+	%git% merge $remote/$branch
 else
 	echo "git checkout $remote/$branch -b $branch"
-	git checkout $remote/$branch -b $branch
+	%git% checkout $remote/$branch -b $branch
 fi
 
-git submodule update --init --recursive
+%git% submodule update --init --recursive
 
 if [[ $task != '' ]]; then
 	echo "start to run shell script: $task"
