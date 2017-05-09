@@ -5,7 +5,7 @@ var child_process = require('child_process');
 var express = require('express');
 var basicAuth = require('basic-auth');
 
-
+var currentPlatform = require('./env');
 
 function hook(req, res, next) {
 	console.log('Deployment request received: ' + JSON.stringify(req.params));
@@ -24,7 +24,7 @@ function hook(req, res, next) {
 	}
 
 	// find branch options in config
-	var branch = req.params[1] || config.defaultBranch || 'master';
+	var branch = req.params[1] || config.defaultBranch || 'orign/master';
 	var options = project[branch];
 	if (!options) {
 		console.log('[404] No options of branch "' + branch + '" found. Please check config.');
@@ -57,21 +57,19 @@ function hook(req, res, next) {
 	}
 
 	// need nodejs >= 0.12
-	var uid = parseInt(child_process.execSync('id -u ' + auth.name).toString().trim(), 10);
-	var home = child_process.execSync('echo ~' + auth.name).toString().trim();
-
-	if (!uid || !home) {
-		return res.status(400).send('not found');
-	}
+	// var uid = parseInt(child_process.execSync('id -u ' + auth.name).toString().trim(), 10);
+	// var home = child_process.execSync('echo ~' + auth.name).toString().trim();
+    //
+	// if (!uid || !home) {
+	// 	return res.status(400).send('not found');
+	// }
 
 	res.status(200).send('ok');
 
-	child_process.execFile(path.join(__dirname, 'bin/deploy.sh'), [id, remote, branch, options.shell || ''], {
-		cwd: options.path,
-		uid: uid,
-		env: process.env
-	}, function (error, stdout, stderr) {
-		console.log(stdout);
+	child_process.execFile(path.join(__dirname, 'bin', `deploy.${currentPlatform.ext}`), [id, remote, branch, options.shell || '',config.gitPath || ''], Object.assign(
+		currentPlatform.execFileOptions, {
+			cwd: options.path
+		}), function (error, stdout, stderr) {
 		if (error) {
 			console.log(error);
 		} else {
@@ -82,7 +80,7 @@ function hook(req, res, next) {
 	console.log('[200] Deployment started.');
 }
 
-var config = require('/etc/hookagent.json');
+var config = require(path.join(currentPlatform.configPath, 'hookagent.json'));
 
 var agent = express();
 
