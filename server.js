@@ -8,7 +8,6 @@ var basicAuth = require('basic-auth');
 var currentPlatform = require('./env');
 
 function hook(req, res, next) {
-<<<<<<< HEAD
     console.log('Deployment request received: ' + JSON.stringify(req.params));
 
     var id = req.params[0];
