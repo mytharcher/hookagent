@@ -7,7 +7,7 @@ var child_process = require('child_process');
 // console.log(process.argv[2])
 child_process.execFile(path.join(__dirname, 'bin', `cli.${currentPlatform.ext}`), [process.argv[2]], {
 	cwd: path.join(__dirname, 'bin'),
-	uid: os.userInfo.uid,
+	uid: os.userInfo().uid,
 	// uid: process.getuid(),
 	// uid: 0,
 	env: process.env

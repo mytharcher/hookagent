@@ -46,7 +46,7 @@ Set a git post hook in the admin panel of your repository like this:
 
 ### Configuration ###
 
-Before start the agent first time, run `hookagent config` to generate a config file named `hookagent.json` in `/etc` folder, maybe need `sudo` prefix.
+Before start the agent first time, run `hookagent config` to generate a config file named `hookagent.json` in `/etc` folder(`C:\Windows\system32` for windows), maybe need `sudo` prefix.
 
 Here is a sample of configuration structure:
 
