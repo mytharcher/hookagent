@@ -46,7 +46,7 @@ Set a git post hook in the admin panel of your repository like this:
 
 ### Configuration ###
 
-Before start the agent first time, run `hookagent config` to generate a config file named `hookagent.json` in `/etc` folder, maybe need `sudo` prefix.
+Before start the agent first time, run `hookagent config` to generate a config file named `hookagent.json` in `/etc` folder(`C:\Windows\system32` for windows), maybe need `sudo` prefix.
 
 Here is a sample of configuration structure:
 
@@ -84,13 +84,17 @@ Here is a sample of configuration structure:
     // Each user ID should match server user name.
     "users": {
         "abc": "ba1f2511fc30423bdbb183fe33f3dd0f"
-    }
+    },
+    // add git path for windows server
+    "gitPath": "C:\\Program Files\\Git\bin\git.exe"
 }
 ```
 
 **Make sure** that when using different branches in one project, the `path` of branch shouldn't be same on one server. This is just for different usage (such as testing) base on branch mapping.
 
 Once the config file generated, run the `hookagent config` will open the content with `vim`.
+
+**When you use to Windows server, you should use node as default open method to javascript.**
 
 Roadmap
 -----------
