@@ -13,12 +13,12 @@ Usage
 
 ### On your server ###
 
-    $ sudo npm install -g hookagent
+    $ npm install -g hookagent
 
 After installed you can use this commands to start the agent:
 
-    $ sudo hookagent config
-    $ sudo su -c "hookagent start" # start the process as root
+    $ hookagent config
+    $ hookagent start
 
 ### Get ready your repository ###
 
@@ -46,7 +46,7 @@ Set a git post hook in the admin panel of your repository like this:
 
 ### Configuration ###
 
-Before start the agent first time, run `hookagent config` to generate a config file named `hookagent.json` in `/etc` folder(`C:\Windows\system32` for windows), maybe need `sudo` prefix.
+Before start the agent first time, run `hookagent config` to generate a config file named `config.json` in `~/.hookagent` folder(`C:\Users\YourName` for windows).
 
 Here is a sample of configuration structure:
 
@@ -94,13 +94,13 @@ Here is a sample of configuration structure:
 
 Once the config file generated, run the `hookagent config` will open the content with `vim`.
 
-**When you use to Windows server, you should use node as default open method to javascript.**
+**When you use it on Windows server, you should use node as default open method to javascript.**
 
 Roadmap
 -----------
 
 * Add logger.
-* Add Github and Bitbucket post data parsing to avoid none updated pulling.
+* Add Github/Bitbucket/Gitlab post data parsing to avoid none updated pulling.
 * Add admin panel using basic authentication.
 * Use SQLite or other database to manage config data.
 * Add RSA authentication instead of basic HTTP.
