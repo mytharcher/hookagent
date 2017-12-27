@@ -1,12 +1,14 @@
 #!/bin/bash
 
+HOME_PATH=`echo ~`
 APP_NAME=hookagent
 
 LIB_PATH="$(dirname $0)/$(dirname $(readlink $0))/.."
 SERVER_SCRIPT="$LIB_PATH/server.js"
 CONFIG_SOURCE="$LIB_PATH/config.json"
-CONFIG_TARGET="/etc/$APP_NAME.json"
-LOG_PATH="/var/log/$APP_NAME"
+CONFIG_PATH="$HOME_PATH/.hookagent"
+CONFIG_TARGET="$CONFIG_PATH/config.json"
+LOG_PATH="$CONFIG_PATH/log"
 
 CONFIGURED=0
 
@@ -26,14 +28,18 @@ case $1 in
 			echo "$APP_NAME configurations ($CONFIG_TARGET):"
 			vim $CONFIG_TARGET
 		else
+			if [[ ! -d $CONFIG_PATH ]]; then
+				mkdir -p $CONFIG_PATH && echo "$APP_NAME config folder created at $CONFIG_PATH."
+			fi
 			if [[ ! -f $CONFIG_TARGET ]]; then
 				cp $CONFIG_SOURCE $CONFIG_TARGET && chmod 600 $CONFIG_TARGET && echo "$APP_NAME default configurations generated to $CONFIG_TARGET. You can add your project config as sample in it."
 			fi
 			if [[ ! -d $LOG_PATH ]]; then
-				mkdir -p $LOG_PATH -m 777 && echo "$APP_NAME log folder created at $LOG_PATH."
+				mkdir -p $LOG_PATH && echo "$APP_NAME log folder created at $LOG_PATH."
 			fi
 		fi
 		;;
+
 	start )
 		if [[ $CONFIGURED = 1 ]]; then
 			echo "Starting deploy agent server..."
@@ -42,12 +48,14 @@ case $1 in
 			check_config
 		fi
 		;;
+
 	stop )
 		if [[ $CONFIGURED = 1 ]]; then
 			echo "Stopping deploy agent server..."
 			pm2 stop $APP_NAME
 		fi
 		;;
+
 	restart )
 		if [[ $CONFIGURED = 1 ]]; then
 			echo "Restarting deploy agent server..."
@@ -56,9 +64,11 @@ case $1 in
 			check_config
 		fi
 		;;
+
 	update )
 		npm update -g hookagent
 		;;
+
 	*)
 		echo "Usage: $APP_NAME <sub-command>"
 		echo "  config: to generate configuration file or show content."
@@ -66,4 +76,5 @@ case $1 in
 		echo "  stop: to stop the running service."
 		echo "  update: to update the version."
 		;;
+
 esac

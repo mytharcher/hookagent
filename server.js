@@ -66,12 +66,17 @@ function hook(req, res, next) {
 
     res.status(200).send('ok');
 
-    child_process.execFile(path.join(__dirname, 'bin', `deploy.${currentPlatform.ext}`), [id, remote, branch, options.shell || '',config.gitPath || ''], Object.assign(
-        currentPlatform.execFileOptions, {
-            cwd: options.path
-        }), function (error, stdout, stderr) {
+    child_process.execFile(path.join(__dirname, 'bin', `deploy.${currentPlatform.ext}`), [
+        id,
+        remote,
+        branch,
+        options.shell || '',
+        config.gitPath || ''
+    ], Object.assign({}, currentPlatform.execFileOptions, {
+        cwd: options.path
+    }), function (error, stdout, stderr) {
         if (error) {
-            console.log(error);
+            console.error(error);
         } else {
             console.log('Deployment done.');
         }
@@ -80,7 +85,7 @@ function hook(req, res, next) {
     console.log('[200] Deployment started.');
 }
 
-var config = require(path.join(currentPlatform.configPath, 'hookagent.json'));
+var config = require(currentPlatform.configPath);
 
 var agent = express();
 

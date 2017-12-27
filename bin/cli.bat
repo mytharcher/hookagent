@@ -1,4 +1,3 @@
-
 set APP_NAME=hookagent
 
 :: get current user
@@ -7,13 +6,10 @@ set currentUser=%username%
 :: get project root path
 set LIB_PATH=..\
 
-:: get configPath from parameters
-set configPath=C:\Windows\system32
-
 set SERVER_SCRIPT=%LIB_PATH%\server.js
 set CONFIG_SOURCE=%LIB_PATH%\config.json
-set CONFIG_TARGET=%configPath%\%APP_NAME%.json
-set LOG_PATH=%UserProfile%\log\%APP_NAME%
+set CONFIG_TARGET=%UserProfile%\.%APP_NAME%\config.json
+set LOG_PATH=%UserProfile%\.%APP_NAME\log%
 
 :: check if exists config file.
 if not exist %CONFIG_TARGET% (
