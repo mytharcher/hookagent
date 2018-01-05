@@ -75,6 +75,8 @@ function hook(req, res, next) {
     ], Object.assign({}, currentPlatform.execFileOptions, {
         cwd: options.path
     }), function (error, stdout, stderr) {
+        console.log(stdout);
+
         if (error) {
             console.error(error);
         } else {
