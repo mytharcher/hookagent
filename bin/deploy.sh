@@ -1,6 +1,11 @@
 #!/bin/bash
 
-LOG_PATH=/var/log/hookagent
+HOME_PATH=`echo ~`
+APP_NAME=hookagent
+
+CONFIG_PATH="$HOME_PATH/.$APP_NAME"
+LOG_PATH="$CONFIG_PATH/log"
+
 PROJECT=$1
 
 remote=$2

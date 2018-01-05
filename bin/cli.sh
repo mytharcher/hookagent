@@ -6,7 +6,7 @@ APP_NAME=hookagent
 LIB_PATH="$(dirname $0)/$(dirname $(readlink $0))/.."
 SERVER_SCRIPT="$LIB_PATH/server.js"
 CONFIG_SOURCE="$LIB_PATH/config.json"
-CONFIG_PATH="$HOME_PATH/.hookagent"
+CONFIG_PATH="$HOME_PATH/.$APP_NAME"
 CONFIG_TARGET="$CONFIG_PATH/config.json"
 LOG_PATH="$CONFIG_PATH/log"
 
