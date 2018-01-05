@@ -26,7 +26,7 @@ Additional things about git you should make sure:
 
 * Project repository alread cloned once from 3rd-party git service.
 
-* All repository files(folders) is own by the specific user(s) you configured in the config file (`/etc/hookagent.json`, see below).
+* All repository files(folders) is own by the specific user(s) you configured in the config file (`~/.hookagent/config.json`, see below).
 
 * Within the user, the ssh-key has been generated (no password), and set as deploy key in 3rd-party git service.
 
