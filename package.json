@@ -1,6 +1,6 @@
 {
   "name": "hookagent",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Git webhook agent for server auto-deployment.",
   "main": "server.js",
   "bin": {
@@ -15,6 +15,9 @@
   "dependencies": {
     "express": "^4.12.3",
     "basic-auth": "^1.0.0"
+  },
+  "peerDependencies": {
+    "pm2": "*"
   },
   "engines": {
     "node": ">=2.3.0"
