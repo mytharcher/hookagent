@@ -56,16 +56,23 @@ function hook(req, res, next) {
         return res.status(404).end();
     }
 
-    const execFileOptions = { ...currentPlatform.execFileOptions, cwd: options.path };
+    var execFileOptions = Object.assign({}, currentPlatform.execFileOptions, { cwd: options.path });
 
     if (currentPlatform.posix) {
         var uid = parseInt(child_process.execSync('id -u ' + auth.name).toString().trim(), 10);
+        var gid = parseInt(child_process.execSync('id -g ' + auth.name).toString().trim(), 10);
+        var home = child_process.execSync('echo ~' + auth.name).toString().trim();
         
-        if (auth.name && !uid) {
-            return res.status(404).send('not found');
+        if (auth.name && (!uid || !home)) {
+            return res.status(404).send('[404] No user or home directory found');
         }
 
         execFileOptions.uid = uid;
+        execFileOptions.gid = gid;
+        Object.assign(execFileOptions.env, {
+            HOME: home,
+            HOME_PATH: home
+        });
     }
 
     res.status(200).send('ok');

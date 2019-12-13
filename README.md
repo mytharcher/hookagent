@@ -8,7 +8,7 @@ Usage
 
 ### Requirement ###
 
-* node version >= 0.12.0
+* node version >= 10
 * [PM2][] installed in global: `sudo npm install -g pm2`
 
 ### On your server ###
@@ -86,7 +86,7 @@ Here is a sample of configuration structure:
         "abc": "ba1f2511fc30423bdbb183fe33f3dd0f"
     },
     // add git path for windows server
-    "gitPath": "C:\\Program Files\\Git\bin\git.exe"
+    "gitPath": "C:\Program Files\Git\bin\git.exe"
 }
 ```
 

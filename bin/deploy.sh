@@ -13,6 +13,10 @@ branch=$3
 
 echo "start deploying $remote/$branch"
 
+if [[ ! -d $LOG_PATH ]]; then
+	mkdir -p $LOG_PATH
+fi
+
 TEMP_FLAG=$LOG_PATH/.$PROJECT.$remote-$branch
 
 if [[ ! -f $TEMP_FLAG ]]; then
