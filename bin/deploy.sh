@@ -10,7 +10,6 @@ PROJECT=$1
 
 remote=$2
 branch=$3
-task=$4
 
 echo "start deploying $remote/$branch"
 
@@ -52,10 +51,5 @@ else
 fi
 
 git submodule update --init --recursive
-
-if [[ $task != '' ]]; then
-	echo "start to run shell script: $task"
-	sh $task
-fi
 
 rm $TEMP_FLAG

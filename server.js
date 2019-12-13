@@ -56,13 +56,17 @@ function hook(req, res, next) {
         return res.status(404).end();
     }
 
-    // need nodejs >= 0.12
-    // var uid = parseInt(child_process.execSync('id -u ' + auth.name).toString().trim(), 10);
-    // var home = child_process.execSync('echo ~' + auth.name).toString().trim();
-    //
-    // if (!uid || !home) {
-    // 	return res.status(400).send('not found');
-    // }
+    const execFileOptions = { ...currentPlatform.execFileOptions, cwd: options.path };
+
+    if (currentPlatform.posix) {
+        var uid = parseInt(child_process.execSync('id -u ' + auth.name).toString().trim(), 10);
+        
+        if (auth.name && !uid) {
+            return res.status(404).send('not found');
+        }
+
+        execFileOptions.uid = uid;
+    }
 
     res.status(200).send('ok');
 
@@ -70,11 +74,8 @@ function hook(req, res, next) {
         id,
         remote,
         branch,
-        options.shell || '',
         config.gitPath || ''
-    ], Object.assign({}, currentPlatform.execFileOptions, {
-        cwd: options.path
-    }), function (error, stdout, stderr) {
+    ], execFileOptions, function (error, stdout, stderr) {
         console.log(stdout);
 
         if (error) {

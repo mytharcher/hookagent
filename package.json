@@ -1,6 +1,6 @@
 {
   "name": "hookagent",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "Git webhook agent for server auto-deployment.",
   "main": "server.js",
   "bin": {
@@ -20,6 +20,6 @@
     "pm2": "*"
   },
   "engines": {
-    "node": ">=2.3.0"
+    "node": ">=10"
   }
 }

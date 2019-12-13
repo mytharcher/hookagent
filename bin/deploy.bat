@@ -4,9 +4,8 @@
 set PROJECT=%1
 set remote=%2
 set branch=%3
-set task=%4
 
-set git=%5
+set git=%4
 
 @echo start deploying %remote%/%branch%;
 

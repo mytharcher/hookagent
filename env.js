@@ -5,17 +5,18 @@ var currentPlatform = {
     configPath: path.join(os.homedir(), '.hookagent', 'config.json')
 };
 
-Object.assign(currentPlatform, process.platform === 'win32' ?
-    {
+Object.assign(currentPlatform, process.platform === 'win32'
+    ? {
         ext: 'bat',
+        posix: false,
         execFileOptions: {
             env: process.env
         }
-    } :
-    {
+    }
+    : {
         ext: 'sh',
+        posix: true,
         execFileOptions: {
-            uid: process.getuid(),
             env: process.env
         }
     }
