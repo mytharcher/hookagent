@@ -69,10 +69,18 @@ function hook(req, res, next) {
 
         execFileOptions.uid = uid;
         execFileOptions.gid = gid;
-        Object.assign(execFileOptions.env, {
-            HOME: home,
-            HOME_PATH: home
-        });
+
+        // when running hookagent under root
+        if (process.env.USER === 'root') {
+            // get the target user's env
+            var envBuffer = child_process.execSync(`su - -c env ${auth.name}`);
+            envBuffer.toString().split('\n').forEach(line => {
+                var [key, ...value] = line.split('=');
+                execFileOptions.env[key] = value.join('');
+            });
+        } else {
+            Object.assign(execFileOptions.env, process.env);
+        }
     }
 
     res.status(200).send('ok');
