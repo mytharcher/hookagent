@@ -63,7 +63,7 @@ function hook(req, res, next) {
         var gid = parseInt(child_process.execSync('id -g ' + auth.name).toString().trim(), 10);
         var home = child_process.execSync('echo ~' + auth.name).toString().trim();
         
-        if (auth.name && (!uid || !home)) {
+        if (auth.name && (uid != null || !home)) {
             return res.status(404).send('[404] No user or home directory found');
         }
 
