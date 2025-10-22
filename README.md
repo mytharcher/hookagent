@@ -54,10 +54,8 @@ Here is a sample of configuration structure:
 {
     // The HTTP listening port
     "port": 6060,
-    // Default remote will be used if not set in post request
-    "defaultRemote": "origin",
     // Default branch which will be updated when not set in post request
-    "defaultBranch": "master",
+    "defaultBranch": "origin/main",
 
     // Projects map. ID: object
     "projects": {

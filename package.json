@@ -1,6 +1,6 @@
 {
   "name": "hookagent",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Git webhook agent for server auto-deployment.",
   "main": "server.js",
   "bin": {

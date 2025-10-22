@@ -24,7 +24,7 @@ function hook(req, res, next) {
     }
 
     // find branch options in config
-    var branch = req.params[1] || config.defaultBranch || 'orign/master';
+    var branch = req.params[1] || config.defaultBranch || 'orign/main';
     var options = project[branch];
     if (!options) {
         console.log('[404] No options of branch "' + branch + '" found. Please check config.');
@@ -63,7 +63,7 @@ function hook(req, res, next) {
         var gid = parseInt(child_process.execSync('id -g ' + auth.name).toString().trim(), 10);
         var home = child_process.execSync('echo ~' + auth.name).toString().trim();
         
-        if (auth.name && (uid != null || !home)) {
+        if (auth.name && (uid == null || !home)) {
             return res.status(404).send('[404] No user or home directory found');
         }
 
